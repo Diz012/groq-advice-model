@@ -24,7 +24,7 @@ async def get_advisor_advice(data: StudentData):
                         "Bạn là một AI hỗ trợ cố vấn học tập tìm giải pháp hỗ trợ cải thiện tình hình học tập của sinh viên."
                         "Hãy phân tích các vấn đề của sinh viên và đưa ra lời khuyên cụ thể."
                         "Cần đồng cảm và có tính thực tiễn cao cho giảng viên cố vấn."
-                        "Loại bỏ các kí tự không cần thiết"
+                        "Phản hồi dưới định dạng Markdown rõ ràng, súc tích"
                     ),
                 },
                 {
@@ -35,7 +35,7 @@ async def get_advisor_advice(data: StudentData):
             model="llama-3.3-70b-versatile", # Model mạnh nhất của Groq hiện tại
         )
         return {
-            "student_id": data.student_id
+            "student_id": data.student_id,
             "analysis": chat_completion.choices[0].message.content
         }
     except Exception as e:
