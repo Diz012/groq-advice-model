@@ -11,7 +11,7 @@ client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 class StudentData(BaseModel):
     student_id: str  
-    concerns: str    # Vấn đề cụ thể (vắng học, điểm thấp, tâm lý...)
+    risk_reasons: str    # Vấn đề cụ thể (vắng học, điểm thấp, tâm lý...)
 
 @app.post("/get-advice")
 async def get_advisor_advice(data: StudentData):
@@ -21,15 +21,16 @@ async def get_advisor_advice(data: StudentData):
                 {
                     "role": "system",
                     "content": (
-                        "Bạn là một AI hỗ trợ cố vấn học tập tìm giải pháp hỗ trợ cải thiện tình hình học tập của sinh viên."
-                        "Hãy phân tích các vấn đề của sinh viên và đưa ra lời khuyên cụ thể."
-                        "Cần đồng cảm và có tính thực tiễn cao cho giảng viên cố vấn."
-                        "Phản hồi dưới định dạng Markdown rõ ràng, súc tích"
+                        "Bạn là một chuyên gia cố vấn học tập dày dạn kinh nghiệm."
+                        "Hãy phân tích các vấn đề của sinh viên và đưa ra lời khuyên cụ thể cho cố vấn."
+                        "Cần đồng cảm với sinh viên và có tính thực tiễn cao cho giảng viên cố vấn."
+                        "Cấu trúc phản hồi: Nhắc nhở cố vấn, Đưa ra giải pháp, Cổ vũ cố vấn"
+                        "Phản hồi dưới định dạng Markdown rõ ràng, súc tích."
                     ),
                 },
                 {
                     "role": "user",
-                    "content": f"Vấn đề cần tư vấn: {data.concerns}",
+                    "content": f"Vấn đề cần tư vấn: {data.risk_reasons}",
                 }
             ],
             model="llama-3.3-70b-versatile", # Model mạnh nhất của Groq hiện tại
